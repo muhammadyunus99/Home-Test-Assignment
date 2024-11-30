@@ -32,8 +32,9 @@ jobs:
           api-level: 31
           target: default
           arch: x86_64
-          profile: Pixel_5
-          emulator-options: "-no-window -gpu off"
+          profile: Pixel_4_API_31
+          emulator-options: "-no-audio -no-window -gpu swiftshader_indirect"
+          startup-timeout: 600
           script: |
             npm run test:android
 
@@ -55,5 +56,5 @@ jobs:
 
       - name: Set up Xcode
         run: |
-          xcode-select --switch /Applications/Xcode.app
+          sudo xcode-select --switch /Applications/Xcode.app
           npm run test:ios
