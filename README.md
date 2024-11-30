@@ -97,7 +97,8 @@ The repository is organized as follows:
 │
 ├── README.md
 ├── package.json
-├── wdio.conf.js
+├── wdio.android.conf.js
+├── wdio.ios.conf.js
 └── .gitignore
 ```
 
