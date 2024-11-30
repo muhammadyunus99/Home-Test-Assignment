@@ -1,13 +1,11 @@
-name: Run Android and iOS Tests
+name: Run Android Tests
 
 on:
   push:
     branches:
       - main
-
-  # Scheduled run at 3 PM Cairo time (EET = UTC+2)
   schedule:
-    - cron: "0 13 * * 6"
+    - cron: "0 13 * * 6" # Run every Saturday at 3 PM Cairo time
 
 jobs:
   android-tests:
@@ -15,18 +13,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
+      # Install dependencies
       - name: Install dependencies
         run: npm install
 
-      - name: Set up Android
+      # List available AVDs (optional for debugging)
+      - name: List AVDs
+        run: avdmanager list avd
+
+      # Set up Android Emulator
+      - name: Set up Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 31
@@ -35,26 +41,11 @@ jobs:
           profile: Pixel_4_API_31
           emulator-options: "-no-audio -no-window -gpu swiftshader_indirect"
           startup-timeout: 600
-          script: |
-            npm run test:android
 
-  ios-tests:
-    name: Run iOS Tests
-    runs-on: macos-latest
+      # Run Android Tests
+      - name: Run Android Tests
+        run: npm run android:test
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Set up Xcode
-        run: |
-          sudo xcode-select --switch /Applications/Xcode.app
-          npm run test:ios
+      # Terminate Emulator
+      - name: Terminate Emulator
+        run: adb -s emulator-5554 emu kill || true
