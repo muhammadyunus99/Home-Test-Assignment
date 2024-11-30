@@ -13,23 +13,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '11'
 
-      # Install dependencies
-      - name: Install dependencies
-        run: npm install
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v2
+      with:
+        api-level: 31
+        build-tools: '31.0.0'
+        target: 'android-31'
 
-      # List available AVDs (optional for debugging)
-      - name: List AVDs
-        run: avdmanager list avd
+    - name: Install AVD Manager
+      run: sdkmanager "system-images;android-31;default;x86_64"
+
+    - name: List available AVDs
+      run: |
+        avdmanager list avd
 
       # Set up Android Emulator
       - name: Set up Android Emulator
