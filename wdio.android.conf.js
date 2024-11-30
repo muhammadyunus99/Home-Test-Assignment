@@ -1,4 +1,3 @@
-// https://www.loom.com/share/dc6f4b0d51854780a9c6ff2bbaeff694?sid=8a2d343a-9ac2-41e0-a119-e51c7152c755
 exports.config = {
   runner: "local",
   logLevel: "debug",
