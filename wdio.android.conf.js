@@ -10,7 +10,7 @@ exports.config = {
       "appium:platformVersion": "12.0",
       "appium:automationName": "UiAutomator2",
       "appium:app":
-        "C:\\Users\\mohamed\\Desktop\\myRNDemoapp-automation\\resources\\Android-MyDemoAppRN.1.3.0.build-244.apk",
+        "\\your\\path\\to\\resources\\MyRNDemoApp.app\\resources\\Android-MyDemoAppRN.1.3.0.build-244.apk",
     },
   ],
   framework: "cucumber",

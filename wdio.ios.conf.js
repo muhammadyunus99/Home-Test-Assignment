@@ -8,8 +8,7 @@ exports.config = {
       "appium:deviceName": "iPhone 16",
       "appium:platformVersion": "18.1",
       "appium:automationName": "XCUITest",
-      "appium:app":
-        "/Users/mohamed.mohamed6/Desktop/mydemoapp-automation/resources/MyRNDemoApp.app",
+      "appium:app": "/your/path/to/resources/MyRNDemoApp.app",
     },
   ],
   framework: "cucumber",
