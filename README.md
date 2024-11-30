@@ -111,5 +111,6 @@ The repository is organized as follows:
 - **resources**: Holds the application resources and related files.
 - **README.md**: The main documentation file for the project.
 - **package.json**: Lists the project's dependencies and scripts.
-- **wdio.conf.js**: Configuration file for WebDriverIO.
+- **wdio.android.conf.js**: Configuration file for WebDriverIO on Android.
+- **wdio.ios.conf.js**: Configuration file for WebDriverIO on iOS.
 - **.gitignore**: Specifies files and directories to be ignored by Git.
