@@ -1,0 +1,59 @@
+name: Run Android and iOS Tests
+
+on:
+  push:
+    branches:
+      - main
+
+  # Scheduled run at 3 PM Cairo time (EET = UTC+2)
+  schedule:
+    - cron: "0 13 * * 6"
+
+jobs:
+  android-tests:
+    name: Run Android Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set up Android
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 31
+          target: default
+          arch: x86_64
+          profile: Pixel_5
+          emulator-options: "-no-window -gpu off"
+          script: |
+            npm run test:android
+
+  ios-tests:
+    name: Run iOS Tests
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set up Xcode
+        run: |
+          xcode-select --switch /Applications/Xcode.app
+          npm run test:ios
